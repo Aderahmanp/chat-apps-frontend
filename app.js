@@ -1,5 +1,6 @@
 const express = require('express')
 const userRoutes = require('./routes/user')
+const chatRoutes = require('./routes/chat')
 const mongoose = require('mongoose')
 
 try {
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // initualization of plug'in Middleware, Routes
 app.use('/', userRoutes)
+app.use('/', chatRoutes)
 
 // Listen server
 app.listen(PORT, () => {
