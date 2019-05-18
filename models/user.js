@@ -16,7 +16,8 @@ userSchema = new Schema({
   gender: { type: String },
   image: { type: String },
   bio: { type: String },
-  chat: [{ type: Schema.Types.ObjectId, ref: 'Chat' }]
+  from: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
+  to: [{ type: Schema.Types.ObjectId, ref: 'Chat' }]
 })
 
 userSchema.plugin(uniqueValidator)
