@@ -16,21 +16,21 @@ exports.sendMessage = (req, res) => {
         from: res.locals.decoded.id,
         to: req.params.id
       })
-        .then(data => {
+        .then(message => {
           User.findByIdAndUpdate(res.locals.decoded.id, {
-            $push: { to: req.params.id }
+            $push: { to: message._id }
           })
             .exec()
             .then(() => {
               User.findByIdAndUpdate(req.params.id, {
-                $push: { from: res.locals.decoded.id }
+                $push: { from: message._id }
               })
                 .exec()
                 .then(data =>
                   res.status(206).json({
                     success: true,
                     message: 'succes',
-                    data: data
+                    data: message
                   })
                 )
             })
@@ -43,6 +43,25 @@ exports.sendMessage = (req, res) => {
         )
     }
   })
+}
+
+exports.getMesessage = (req, res) => {
+  User.findById(res.locals.decoded.id)
+    .populate('to from')
+    .exec()
+    .then(data => {
+      res.status(200).json({
+        success: true,
+        message: 'succes',
+        data: data
+      })
+    })
+    .catch(err => {
+      res.status(400).json({
+        success: false,
+        message: err.message
+      })
+    })
 }
 
 exports.member = (req, res) => {
