@@ -5,6 +5,8 @@ const auth = require('../middleware/jwtAuth')
 
 router.post('/message/:id', auth.isAuthenticated, chatController.sendMessage)
 
+router.get('/', auth.isAuthenticated, chatController.getMesessage)
+
 router.get('/member', auth.isAuthenticated, chatController.member)
 
 module.exports = router
