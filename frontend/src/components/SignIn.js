@@ -43,7 +43,8 @@ class Login extends Component {
       }
     })
       .then(res => {
-        this.props.isLogin();
+        localStorage.setItem("token", res.data.data.token);
+        this.props.isLogin(res.data.token);
         this.props.history.push("/chatroom");
       })
       .catch(err => {

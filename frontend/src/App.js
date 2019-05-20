@@ -6,12 +6,23 @@ import ChatRoom from "./components/ChatRoom";
 
 class App extends Component {
   state = {
-    isLogin: false
+    isLogin: false,
+    token: null
   };
 
-  isLogin = () => {
+  componentDidMount() {
+    if (localStorage.getItem("token")) {
+      this.setState({
+        token: localStorage.getItem("token"),
+        isLogin: true
+      });
+    }
+  }
+
+  isLogin = token => {
     this.setState({
-      isLogin: true
+      isLogin: true,
+      token: token
     });
   };
 
