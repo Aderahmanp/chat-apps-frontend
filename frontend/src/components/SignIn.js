@@ -1,12 +1,75 @@
 import React, { Component } from "react";
-import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Link } from "react-router-dom";
+import {
+  Container,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Alert
+} from "reactstrap";
 import "./SignIn.css";
+import Axios from "axios";
 
 class Login extends Component {
+  state = {
+    email: null,
+    password: null,
+    error: null
+  };
+
+  handleChange = e => {
+    // Change the state
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleSubmit = e => {
+    // Prevent Button for refresh the page
+    e.preventDefault();
+
+    // Request login to server / API
+    Axios({
+      method: "POST",
+      url: "http://localhost:4322/sign-in",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data: {
+        email: this.state.email,
+        password: this.state.password
+      }
+    })
+      .then(res => {
+        this.props.isLogin();
+        this.props.history.push("/chatroom");
+      })
+      .catch(err => {
+        this.setState({
+          error: err.response.data.message
+        });
+        setTimeout(() => {
+          this.setState({
+            error: null
+          });
+        }, 3000);
+      });
+  };
+
   render() {
     return (
       <Container className="center-container">
-        <Form className="border border-primary p-3 rounded">
+        {this.state.error && (
+          <Alert color="danger" className="alert">
+            {this.state.error}
+          </Alert>
+        )}
+        <Form
+          onSubmit={this.handleSubmit}
+          className="border border-primary p-3 rounded form"
+        >
           <h1>Login</h1>
           <FormGroup>
             <Label for="email">Email</Label>
@@ -16,6 +79,7 @@ class Login extends Component {
               name="email"
               id="email"
               placeholder="email or username"
+              onChange={this.handleChange}
             />
             <Label for="password">password</Label>
             <Input
@@ -23,12 +87,15 @@ class Login extends Component {
               name="password"
               id="password"
               placeholder="password"
+              onChange={this.handleChange}
             />
           </FormGroup>
-          <Button color="primary">Login</Button>
-          <a href="Signup" className="float-right">
+          <Button type="submit" color="primary">
+            Login
+          </Button>
+          <Link to="/Signup" className="float-right">
             or register
-          </a>
+          </Link>
         </Form>
       </Container>
     );
