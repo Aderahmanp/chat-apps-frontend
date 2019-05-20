@@ -24,7 +24,10 @@ class App extends Component {
             path="/"
             component={props => <SignIn {...props} isLogin={this.isLogin} />}
           />
-          <Route path="/signup" component={SignUp} />
+          <Route
+            path="/signup"
+            component={props => <SignUp {...props} isLogin={this.isLogin} />}
+          />
           {this.state.isLogin && (
             <Route path="/chatroom" component={ChatRoom} />
           )}
