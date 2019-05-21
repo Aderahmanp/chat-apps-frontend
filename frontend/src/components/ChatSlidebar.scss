@@ -1,0 +1,17 @@
+.listgroup--parent {
+  cursor: pointer;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  .listgroup--parent__img {
+    width: 5em;
+    border-radius: 3em;
+  }
+
+  .listgroup--parent__text {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}
