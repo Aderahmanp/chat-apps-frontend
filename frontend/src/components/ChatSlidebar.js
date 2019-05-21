@@ -49,17 +49,24 @@ class ChatSidebar extends Component {
 
   renderListName() {
     const { users } = this.state;
-    const { handleClick } = this.props;
+    const { handleClick, active } = this.props;
     return (
       users.length > 0 &&
-      users.map(user => {
+      users.map((user, index) => {
+        const activeSidebar =
+          active !== null && active === index
+            ? {
+                backgroundColor: "#ECF6EE"
+              }
+            : { backgroundColor: "#FFFFFF" };
         return (
           <ListGroupItem
             className="listgroup--parent"
             key={user.name}
             onClick={() => {
-              handleClick(user._id);
+              handleClick(user._id, index);
             }}
+            style={activeSidebar}
           >
             <img
               alt={user.name}
@@ -84,7 +91,8 @@ class ChatSidebar extends Component {
 }
 
 ChatSidebar.propTypes = {
-  handleClick: PropTypes.func.isRequired
+  handleClick: PropTypes.func.isRequired,
+  active: PropTypes.number
 };
 
 export default ChatSidebar;

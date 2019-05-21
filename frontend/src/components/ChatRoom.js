@@ -10,13 +10,14 @@ class ChatRoom extends Component {
     super(props);
 
     this.state = {
-      activeChat: []
+      activeChat: [],
+      activeIndexChat: null
     };
 
     this.handleClickUser = this.handleClickUser.bind(this);
   }
 
-  handleClickUser(idUser) {
+  handleClickUser(idUser, index) {
     const token = localStorage.getItem("token");
     axios
       .get(`http://localhost:4322/message/${idUser}`, {
@@ -25,11 +26,12 @@ class ChatRoom extends Component {
       .then(response => {
         const { data: chats } = response.data;
         this.setState({
-          activeChat: chats
+          activeChat: chats,
+          activeIndexChat: index
         });
       })
       .catch(err => {
-        console.log(
+        alert(
           (err && err.response && err.response.message) ||
             "Error in generating chats"
         );
@@ -37,16 +39,20 @@ class ChatRoom extends Component {
   }
 
   render() {
-    const { activeChat } = this.state;
+    const { activeChat, activeIndexChat } = this.state;
+    const showChatMain = activeIndexChat !== null && (
+      <ChatMain chats={activeChat} />
+    );
     return (
       <div className="chat-room--container">
         <Row>
           <Col xs="2">
-            <ChatSidebar handleClick={this.handleClickUser} />
+            <ChatSidebar
+              handleClick={this.handleClickUser}
+              active={activeIndexChat}
+            />
           </Col>
-          <Col xs="10">
-            <ChatMain chats={activeChat} />
-          </Col>
+          <Col xs="9">{showChatMain}</Col>
         </Row>
       </div>
     );
