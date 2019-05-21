@@ -1,10 +1,21 @@
 import React, { Component, Fragment } from "react";
-import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import "./ChatRoom.css";
+import "./ChatSlidebar";
 
 class ChatRoom extends Component {
   render() {
-    return <Fragment>Ini Chat page</Fragment>;
+    return (
+      <Fragment>
+        Ini Chat page
+        <row>
+          <Col xs="2" ChatSlidebar>
+            ChatSlidebar
+          </Col>
+          <Col xs="10">.col-6</Col>
+        </row>
+      </Fragment>
+    );
   }
 }
 
