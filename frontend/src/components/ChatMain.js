@@ -1,5 +1,13 @@
 import React from "react";
-import { FormGroup, Input, Button, Row, Col } from "reactstrap";
+import {
+  FormGroup,
+  Input,
+  Button,
+  Row,
+  Col,
+  InputGroup,
+  InputGroupAddon
+} from "reactstrap";
 import PropTypes from "prop-types";
 import moment from "moment";
 import axios from "axios";
@@ -84,20 +92,12 @@ class ChatMain extends React.Component {
           <div className="chat-content--parent-container">
             {showContentChat}
           </div>
-          <Row>
-            <Col xs="11">
-              <Input type="textarea" placeholder="Input the message" />
-            </Col>
-            <Col xs="1">
-              <Button
-                outline
-                color="info"
-                className="chat-main--container__send-btn"
-              >
-                Send
-              </Button>
-            </Col>
-          </Row>
+          <InputGroup>
+            <Input placeholder="Type a message..." />
+            <InputGroupAddon addonType="append">
+              <Button color="info">Send</Button>
+            </InputGroupAddon>
+          </InputGroup>
         </FormGroup>
       </div>
     );
