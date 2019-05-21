@@ -15,6 +15,7 @@ class ChatRoom extends Component {
     };
 
     this.handleClickUser = this.handleClickUser.bind(this);
+    this.handleSendBtn = this.handleSendBtn.bind(this);
   }
 
   handleClickUser(idUser, index) {
@@ -28,6 +29,33 @@ class ChatRoom extends Component {
         this.setState({
           activeChat: chats,
           activeIndexChat: index
+        });
+      })
+      .catch(err => {
+        alert(
+          (err && err.response && err.response.message) ||
+            "Error in generating chats"
+        );
+      });
+  }
+
+  handleSendBtn(idUser, message) {
+    const { activeChat } = this.state;
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        `http://localhost:4322/message/${idUser}`,
+        { message },
+        {
+          headers: { Authorization: token }
+        }
+      )
+      .then(response => {
+        const { data: chat } = response.data;
+        let activeChatsClone = activeChat.slice();
+        activeChatsClone = activeChatsClone.concat([chat]);
+        this.setState({
+          activeChat: activeChatsClone
         });
       })
       .catch(err => {

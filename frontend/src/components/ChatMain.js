@@ -19,7 +19,8 @@ class ChatMain extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      me: {}
+      me: {},
+      chat: ""
     };
 
     this.renderChats = this.renderChats.bind(this);
@@ -84,6 +85,7 @@ class ChatMain extends React.Component {
 
   render() {
     const { chats } = this.props;
+    const { chat } = this.state;
     const showContentChat =
       chats.length === 0 ? <h2>No Chat Available</h2> : this.renderChats(chats);
     return (
@@ -93,7 +95,12 @@ class ChatMain extends React.Component {
             {showContentChat}
           </div>
           <InputGroup>
-            <Input placeholder="Type a message..." />
+            <Input
+              placeholder="Type a message..."
+              onChange={e => {
+                console.log(e.target.value);
+              }}
+            />
             <InputGroupAddon addonType="append">
               <Button color="info">Send</Button>
             </InputGroupAddon>
