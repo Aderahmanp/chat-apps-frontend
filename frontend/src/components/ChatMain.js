@@ -153,6 +153,7 @@ class ChatMain extends React.Component {
               }}
               value={chat}
             />
+
             <InputGroupAddon addonType="append">
               <Button
                 color="info"
