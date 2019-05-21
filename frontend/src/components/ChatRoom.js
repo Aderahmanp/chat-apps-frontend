@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from "react";
-import { Container, Row, Col } from "reactstrap";
+import React, { Component } from "react";
+import { Row, Col } from "reactstrap";
 import "./ChatRoom.scss";
 import ChatSidebar from "./ChatSlidebar";
 import ChatMain from "./ChatMain";
@@ -11,7 +11,8 @@ class ChatRoom extends Component {
 
     this.state = {
       activeChat: [],
-      activeIndexChat: null
+      activeIndexChat: null,
+      activeChatIdUser: null
     };
 
     this.handleClickUser = this.handleClickUser.bind(this);
@@ -27,6 +28,7 @@ class ChatRoom extends Component {
       .then(response => {
         const { data: chats } = response.data;
         this.setState({
+          activeChatIdUser: idUser,
           activeChat: chats,
           activeIndexChat: index
         });
@@ -39,37 +41,38 @@ class ChatRoom extends Component {
       });
   }
 
-  handleSendBtn(idUser, message) {
-    const { activeChat } = this.state;
+  handleSendBtn(message) {
+    const { activeChat, activeChatIdUser } = this.state;
     const token = localStorage.getItem("token");
-    axios
-      .post(
-        `http://localhost:4322/message/${idUser}`,
-        { message },
-        {
-          headers: { Authorization: token }
-        }
-      )
-      .then(response => {
-        const { data: chat } = response.data;
-        let activeChatsClone = activeChat.slice();
-        activeChatsClone = activeChatsClone.concat([chat]);
-        this.setState({
-          activeChat: activeChatsClone
+    message !== "" &&
+      axios
+        .post(
+          `http://localhost:4322/message/${activeChatIdUser}`,
+          { message },
+          {
+            headers: { Authorization: token }
+          }
+        )
+        .then(response => {
+          const { data: chat } = response.data;
+          let activeChatsClone = activeChat.slice();
+          activeChatsClone = activeChatsClone.concat([chat]);
+          this.setState({
+            activeChat: activeChatsClone
+          });
+        })
+        .catch(err => {
+          alert(
+            (err && err.response && err.response.message) ||
+              "Error in generating chats"
+          );
         });
-      })
-      .catch(err => {
-        alert(
-          (err && err.response && err.response.message) ||
-            "Error in generating chats"
-        );
-      });
   }
 
   render() {
     const { activeChat, activeIndexChat } = this.state;
-    const showChatMain = activeIndexChat !== null && (
-      <ChatMain chats={activeChat} />
+    const showChatMain = (
+      <ChatMain chats={activeChat} onSendBtn={this.handleSendBtn} />
     );
     return (
       <div className="chat-room--container">

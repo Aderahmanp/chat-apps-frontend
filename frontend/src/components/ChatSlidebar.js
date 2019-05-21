@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { ListGroup, ListGroupItem, Container } from "reactstrap";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -15,6 +14,7 @@ class ChatSidebar extends Component {
     this.state = {
       users: [],
       errorLog: "",
+      me: {},
       token: localStorage.getItem("token")
     };
 
@@ -35,6 +35,21 @@ class ChatSidebar extends Component {
       .catch(err => {
         alert(err);
       });
+
+    axios
+      .get("http://localhost:4322/me", { headers: { Authorization: token } })
+      .then(response => {
+        const { data: user } = response.data;
+        this.setState({
+          me: user
+        });
+      })
+      .catch(err => {
+        alert(
+          (err && err.response && err.response.message) ||
+            "Error in generating chats"
+        );
+      });
   }
 
   handleChange = e => {
@@ -48,7 +63,7 @@ class ChatSidebar extends Component {
   };
 
   renderListName() {
-    const { users } = this.state;
+    const { users, me } = this.state;
     const { handleClick, active } = this.props;
     return (
       users.length > 0 &&
@@ -60,21 +75,23 @@ class ChatSidebar extends Component {
               }
             : { backgroundColor: "#FFFFFF" };
         return (
-          <ListGroupItem
-            className="listgroup--parent"
-            key={user.name}
-            onClick={() => {
-              handleClick(user._id, index);
-            }}
-            style={activeSidebar}
-          >
-            <img
-              alt={user.name}
-              src={placeholder}
-              className="listgroup--parent__img"
-            />
-            <div className="listgroup--parent__text">{user.name}</div>
-          </ListGroupItem>
+          user._id !== me._id && (
+            <ListGroupItem
+              className="listgroup--parent"
+              key={user.name}
+              onClick={() => {
+                handleClick(user._id, index);
+              }}
+              style={activeSidebar}
+            >
+              <img
+                alt={user.name}
+                src={placeholder}
+                className="listgroup--parent__img"
+              />
+              <div className="listgroup--parent__text">{user.name}</div>
+            </ListGroupItem>
+          )
         );
       })
     );
