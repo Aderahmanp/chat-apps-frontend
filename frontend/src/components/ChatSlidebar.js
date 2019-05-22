@@ -24,7 +24,7 @@ class ChatSidebar extends Component {
   componentWillMount() {
     const { token } = this.state;
     axios
-      .get("http://localhost:4322/member", {
+      .get("https://ade-chat-app.herokuapp.com/member", {
         headers: { Authorization: token }
       })
       .then(response => {
@@ -37,7 +37,9 @@ class ChatSidebar extends Component {
       });
 
     axios
-      .get("http://localhost:4322/me", { headers: { Authorization: token } })
+      .get("https://ade-chat-app.herokuapp.com/me", {
+        headers: { Authorization: token }
+      })
       .then(response => {
         const { data: user } = response.data;
         this.setState({

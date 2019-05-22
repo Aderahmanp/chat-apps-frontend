@@ -35,7 +35,7 @@ class SignUp extends Component {
     // Request sign-up to server / API
     Axios({
       method: "POST",
-      url: "http://localhost:4322/Sign-up",
+      url: "https://ade-chat-app.herokuapp.com/Sign-up",
       headers: {
         "Content-Type": "application/json"
       },

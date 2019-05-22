@@ -30,7 +30,9 @@ class ChatMain extends React.Component {
   componentWillMount() {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:4322/me", { headers: { Authorization: token } })
+      .get("https://ade-chat-app.herokuapp.com/me", {
+        headers: { Authorization: token }
+      })
       .then(response => {
         const { data: user } = response.data;
         this.setState({

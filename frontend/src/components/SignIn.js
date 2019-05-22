@@ -33,7 +33,7 @@ class Login extends Component {
     // Request login to server / API
     Axios({
       method: "POST",
-      url: "http://localhost:4322/sign-in",
+      url: "https://ade-chat-app.herokuapp.com/sign-in",
       headers: {
         "Content-Type": "application/json"
       },

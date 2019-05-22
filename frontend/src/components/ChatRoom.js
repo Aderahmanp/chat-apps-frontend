@@ -22,7 +22,7 @@ class ChatRoom extends Component {
   handleClickUser(idUser, index) {
     const token = localStorage.getItem("token");
     axios
-      .get(`http://localhost:4322/message/${idUser}`, {
+      .get(`https://ade-chat-app.herokuapp.com/message/${idUser}`, {
         headers: { Authorization: token }
       })
       .then(response => {
@@ -47,7 +47,7 @@ class ChatRoom extends Component {
     message !== "" &&
       axios
         .post(
-          `http://localhost:4322/message/${activeChatIdUser}`,
+          `https://ade-chat-app.herokuapp.com/message/${activeChatIdUser}`,
           { message },
           {
             headers: { Authorization: token }
