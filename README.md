@@ -1,9 +1,6 @@
-
 # Chat-Apps
 
-
 # Ade Chat API
-
 
 # Installation
 
@@ -16,11 +13,10 @@ $ npm start or yarn start
 
 ### How to use
 
-- Sign-up in web application user your username, name, email and passsword
+- Sign-up in web application input your username, name, email and passsword for registration
 - If you have account sign-in with your email and password
 - See all member in slidebar Send message
 - Send message to your friend
-
 
 ### Technology
 
@@ -32,5 +28,3 @@ $ npm start or yarn start
 ### netlify Link
 
 - [Deploy](https://competent-jepsen-90a9e0.netlify.com/)
-
-
