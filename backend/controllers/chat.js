@@ -50,7 +50,6 @@ exports.getMesessage = (req, res) => {
     from: { $in: [res.locals.decoded.id, req.params.id] },
     to: { $in: [req.params.id, res.locals.decoded.id] }
   })
-    .exec()
     .then(data => {
       res.status(200).json({
         success: true,
