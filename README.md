@@ -1,21 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Chat-Apps
 
-In the project directory, you can run:
 
-### `npm start`
+# Ade Chat API
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+# Installation
 
-### Deployment
+```
+$ git clone https://github.com/Aderahmanp/chat-apps-frontend.git
+$ cd Chat Apps FrontEnd
+$ $ npm install or yarn install
+$ npm start or yarn start
+```
 
-The Front End Chat Apps is now deployed on : https://competent-jepsen-90a9e0.netlify.com/
+### How to use
 
-### `npm run build` fails to minify
+- Sign-up in web application user your username, name, email and passsword
+- If you have account sign-in with your email and password
+- See all member in slidebar Send message
+- Send message to your friend
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### Technology
+
+- [reactstrap](https://reactstrap.github.io/)
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom)
+- [reactjs](https://reactjs.org/)
+- [axios](https://www.npmjs.com/package/axios)
+
+### netlify Link
+
+- [Deploy](https://competent-jepsen-90a9e0.netlify.com/)
+
+
