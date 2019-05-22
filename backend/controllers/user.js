@@ -74,18 +74,16 @@ exports.Me = (req, res) => {
   User.findById(res.locals.decoded.id)
     .exec()
     .then(data => {
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: "succes",
-          data: data
-        })
-        .catch(err => {
-          res.status(400).json({
-            success: false,
-            message: err.message
-          });
-        });
+      res.status(200).json({
+        success: true,
+        message: "succes",
+        data: data
+      });
+    })
+    .catch(err => {
+      return res.status(400).json({
+        success: false,
+        message: err.message
+      });
     });
 };
